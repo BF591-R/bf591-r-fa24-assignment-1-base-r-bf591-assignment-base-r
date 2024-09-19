@@ -189,6 +189,7 @@ print(result_mean)
 #' 2 -0.01574033 1.026951 -0.04725656 -2.967057 2.571608      112              70      0
 #' 3 -0.09040182 1.027559 -0.02774705 -3.026888 2.353087      130              54      0
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
+
 summarize_matrix <- function(m, na_rm = TRUE) {
   summaries <- apply(m, 1, function(row) {
     c(
@@ -198,13 +199,13 @@ summarize_matrix <- function(m, na_rm = TRUE) {
       min = min(row, na.rm = na_rm),
       max = max(row, na.rm = na_rm),
       num_lt_0 = sum(row < 0, na.rm = na_rm),
-      num_btw_1_and_5 = sum(row >= 1 & row <= 5, na.rm = na_rm),
+      num_btw_1_and_5 = sum(row > 1 & row < 5, na.rm = na_rm),  # Corrected condition
       num_na = sum(is.na(row))
     )
   })
+  
   as.data.frame(t(summaries))
 }
-
 
 
 
