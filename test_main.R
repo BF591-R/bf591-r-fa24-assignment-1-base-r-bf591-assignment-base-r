@@ -130,6 +130,7 @@ describe("summarize_matrix()", {
 
 
 
+
 #  these tests are bonus - if you want to try the challenge, uncomment!
 # 
 # describe("Bonus tests! Make your code work when there are NAs!", {
