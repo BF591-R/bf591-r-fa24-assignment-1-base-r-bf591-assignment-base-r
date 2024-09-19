@@ -2,7 +2,7 @@
 
 library(testthat)
 
-# if you change the name of your script, this line must be changed as well
+# if  you change the name of your script, this line must be changed as well
 source("main.R")
 
 describe("less_than_zero()", {
@@ -84,7 +84,7 @@ describe("summarize_rows()", {
 
 describe("summarize_matrix()", {
   m <- matrix(1:9, nrow=3, byrow=T)
-  m_summary <- summarize_matrix(m, na.rm=FALSE)
+  m_summary <- summarize_matrix(m, na.rm=TRUE)
   
   it("returns a dataframe", {
     expect_true(is.data.frame(m_summary))
