@@ -4,7 +4,6 @@
 #'
 #' Returns TRUE if the numeric argument x is a prime number, otherwise returns
 #' FALSE
-#'
 #' @param x (numeric): the numeric value(s) to test
 #'
 #' @return logical value or vector indicating whether the numeric argument is less than 2
@@ -189,7 +188,6 @@ print(result_mean)
 #' 2 -0.01574033 1.026951 -0.04725656 -2.967057 2.571608      112              70      0
 #' 3 -0.09040182 1.027559 -0.02774705 -3.026888 2.353087      130              54      0
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
-
 summarize_matrix <- function(m, na_rm = TRUE) {
   summaries <- apply(m, 1, function(row) {
     c(
@@ -206,4 +204,5 @@ summarize_matrix <- function(m, na_rm = TRUE) {
   
   as.data.frame(t(summaries))
 }
+
 
