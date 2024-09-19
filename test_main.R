@@ -84,40 +84,50 @@ describe("summarize_rows()", {
 
 describe("summarize_matrix()", {
   m <- matrix(1:9, nrow=3, byrow=T)
-  m_summary <- summarize_matrix(m, na.rm=TRUE)
+  m_summary <- summarize_matrix(m, na_rm=TRUE)  # Fixed argument name
   
   it("returns a dataframe", {
     expect_true(is.data.frame(m_summary))
   })
+  
   it("returns the correct colnames in order", {
     expect_true(identical(colnames(m_summary), 
                           c("mean", "stdev", "median", "min", "max", "num_lt_0", "num_btw_1_and_5", "num_na")))
   })
+  
   it("correctly calculates the mean", {
     expect_equal(m_summary$mean, c(2,5,8))
   })
+  
   it("correctly calculates the stdev", {
     expect_equal(m_summary$stdev, c(1, 1, 1))
   })
+  
   it("correctly calculates the median", {
     expect_equal(m_summary$median, c(2, 5, 8))
   })
+  
   it("correctly calculates the min", {
     expect_equal(m_summary$min, c(1,4,7))
   })
+  
   it("correctly calculates the max", {
     expect_equal(m_summary$max, c(3,6,9))
   })
+  
   it("correctly calculates numbers less than zero", {
     expect_equal(m_summary$num_lt_0, c(0, 0, 0))
   })
+  
   it("correctly calculates numbers between 1 and 5", {
     expect_equal(m_summary$num_btw_1_and_5, c(2, 1, 0))
   })
+  
   it("correctly determines number of NA", {
     expect_equal(m_summary$num_na, c(0, 0, 0))
   })
 })
+
 
 
 #  these tests are bonus - if you want to try the challenge, uncomment!
