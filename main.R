@@ -191,6 +191,7 @@ print(result_mean)
 
 
 summarize_matrix <- function(m, na_rm = FALSE) {
+
   mean_val <- apply(m, 1, mean, na.rm = na_rm)
   stdev_val <- apply(m, 1, sd, na.rm = na_rm)
   median_val <- apply(m, 1, median, na.rm = na_rm)
@@ -200,6 +201,7 @@ summarize_matrix <- function(m, na_rm = FALSE) {
   num_btw_1_and_5 <- apply(m, 1, function(row) sum(row > 1 & row < 5, na.rm = na_rm))
   num_na <- apply(m, 1, function(row) sum(is.na(row)))
 
+ 
   result <- data.frame(
     mean = mean_val,
     stdev = stdev_val,
@@ -208,11 +210,10 @@ summarize_matrix <- function(m, na_rm = FALSE) {
     max = max_val,
     num_lt_0 = num_lt_0,
     num_btw_1_and_5 = num_btw_1_and_5,
-    num_na = num_na
+    num_na = num_na,
+    stringsAsFactors = FALSE
   )
+
 
   return(result)
 }
-
-
-
