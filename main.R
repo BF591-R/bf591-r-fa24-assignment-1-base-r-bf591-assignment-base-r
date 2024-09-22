@@ -189,17 +189,17 @@ print(result_mean)
 #' 3 -0.09040182 1.027559 -0.02774705 -3.026888 2.353087      130              54      0
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
 
-m <- matrix(1:9, nrow=3, byrow=T)
+
 summarize_matrix <- function(x, na_rm = FALSE) {
 
-  mean_val <- apply(x, 1, mean, na.rm = na_rm)
-  stdev_val <- apply(x, 1, sd, na.rm = na_rm)
-  median_val <- apply(x, 1, median, na.rm = na_rm)
-  min_val <- apply(x, 1, min, na.rm = na_rm)
-  max_val <- apply(x, 1, max, na.rm = na_rm)
-  num_lt_0 <- apply(x, 1, function(row) sum(row < 0, na.rm = na_rm))
-  num_btw_1_and_5 <- apply(x, 1, function(row) sum(row > 1 & row < 5, na.rm = na_rm))
-  num_na <- apply(x, 1, function(row) sum(is.na(row)))
+  mean_val <- summarize_rows(x, mean, na.rm)
+  stdev_val <- summarize_rows(x, sd, na.rm)
+  median_val <- summarize_rows(x, median, na.rm)
+  min_val <- summarize_rows(x, min, na.rm)
+  max_val <- summarize_rows(x, max, na.rm)
+  num_lt_0 <- summarize_rows(x, function(x){sum(x<0)},na.rm = na.rm)
+  num_btw_1_and_5 <- summarize_rows(x, function(x){sum(x>1 & x<5)},na.rm = na.rm)
+  num_na <- summarize_rows(x, function(x){sum(is.na(x))},na.rm = na.rm)
 
  
   result <- data.frame(
@@ -211,7 +211,6 @@ summarize_matrix <- function(x, na_rm = FALSE) {
     num_lt_0 = num_lt_0,
     num_btw_1_and_5 = num_btw_1_and_5,
     num_na = num_na,
-    stringsAsFactors = FALSE
   )
 
 
