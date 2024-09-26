@@ -190,24 +190,28 @@ print(result_mean)
 #' 4  0.09518138 1.030461  0.11294781 -3.409049 2.544992       90              72      0
 
 
-summarize_matrix <- function(x, na_rm = FALSE) {
-  # Apply functions row-wise using apply
-  mean_val <- apply(x, 1, mean, na.rm = na_rm)
-  stdev_val <- apply(x, 1, sd, na.rm = na_rm)
-  median_val <- apply(x, 1, median, na.rm = na_rm)
-  min_val <- apply(x, 1, min, na.rm = na_rm)
-  max_val <- apply(x, 1, max, na.rm = na_rm)
-  
-  # Number of values less than 0
-  num_lt_0 <- apply(x, 1, function(row) sum(row < 0, na.rm = na_rm))
-  
-  # Number of values between 1 and 5
-  num_btw_1_and_5 <- apply(x, 1, function(row) sum(row > 1 & row < 5, na.rm = na_rm))
-  
-  # Number of missing (NA) values
-  num_na <- apply(x, 1, function(row) sum(is.na(row)))
+m <- matrix(1:9, nrow=3, byrow=TRUE)
+summarize_matrix(m) 
 
-  # Construct the final result data frame
+summarize_matrix <- function(x, na.rm = FALSE) {
+  
+  # Apply the necessary summary functions across rows
+  mean_val <- apply(x, 1, mean, na.rm = na.rm)
+  stdev_val <- apply(x, 1, sd, na.rm = na.rm)
+  median_val <- apply(x, 1, median, na.rm = na.rm)
+  min_val <- apply(x, 1, min, na.rm = na.rm)
+  max_val <- apply(x, 1, max, na.rm = na.rm)
+  
+  # Number of values less than 0 for each row
+  num_lt_0 <- apply(x, 1, function(row) sum(row < 0, na.rm = na.rm))
+  
+  # Number of values between 1 and 5 for each row
+  num_btw_1_and_5 <- apply(x, 1, function(row) sum(row > 1 & row < 5, na.rm = na.rm))
+  
+  # Number of missing values (NA) in each row (ignores `na.rm`)
+  num_na <- apply(x, 1, function(row) sum(is.na(row)))
+  
+  # Create a data frame to store all the results
   result <- data.frame(
     mean = mean_val,
     stdev = stdev_val,
