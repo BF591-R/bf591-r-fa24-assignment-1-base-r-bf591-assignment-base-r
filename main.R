@@ -191,22 +191,28 @@ print(result_mean)
 
 
 summarize_matrix <- function(x, na_rm = FALSE) {
-  # Function to apply the summary function row-wise and handle na.rm
-  summarize_rows <- function(matrix, func, na_rm) {
-    apply(matrix, 1, func, na.rm = na_rm)
+  
+  # Function to apply row-wise summary statistics
+  summarize_rows <- function(x, func, ...) {
+    apply(x, 1, func, ...)
   }
 
-  # Calculate summaries
-  mean_val <- summarize_rows(x, mean, na_rm)
-  stdev_val <- summarize_rows(x, sd, na_rm)
-  median_val <- summarize_rows(x, median, na_rm)
-  min_val <- summarize_rows(x, min, na_rm)
-  max_val <- summarize_rows(x, max, na_rm)
+  mean_val <- summarize_rows(x, mean, na.rm = na_rm)
+  stdev_val <- summarize_rows(x, sd, na.rm = na_rm)
+  median_val <- summarize_rows(x, median, na.rm = na_rm)
+  min_val <- summarize_rows(x, min, na.rm = na_rm)
+  max_val <- summarize_rows(x, max, na.rm = na_rm)
+  
+  # Number of values less than 0
   num_lt_0 <- summarize_rows(x, function(row) sum(row < 0, na.rm = na_rm))
+  
+  # Number of values between 1 and 5
   num_btw_1_and_5 <- summarize_rows(x, function(row) sum(row > 1 & row < 5, na.rm = na_rm))
+  
+  # Number of missing (NA) values
   num_na <- summarize_rows(x, function(row) sum(is.na(row)))
 
-  # Create the result dataframe
+  # Construct the final result data frame
   result <- data.frame(
     mean = mean_val,
     stdev = stdev_val,
@@ -217,6 +223,6 @@ summarize_matrix <- function(x, na_rm = FALSE) {
     num_btw_1_and_5 = num_btw_1_and_5,
     num_na = num_na
   )
-
+  
   return(result)
 }
